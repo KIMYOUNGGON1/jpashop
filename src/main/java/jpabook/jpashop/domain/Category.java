@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class Category {
 
-    @Id @GeneratedValue
-    @Column(name = "category_id")
+    @Id
+    @GeneratedValue
+    @Column ( name = "category_id" )
     private Long id;
 
     private String name;
@@ -24,4 +26,11 @@ public class Category {
             inverseJoinColumns = @JoinColumn ( name = "item_id" )
     )
     private List<Item> items = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn ( name = "parent_id" )
+    private Category parent;
+
+    @OneToMany ( mappedBy = "parent" )
+    private List<Category> child = new ArrayList<>();
 }
